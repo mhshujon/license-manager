@@ -1,6 +1,6 @@
 {
     "name": "mhshujon/license-manager",
-    "description": "A license manager library designed to seamlessly handle licensing APIs for both WooCommerce (WC) and Easy Digital Downloads (EDD).",
+    "description": "A license manager library designed to seamlessly handle licensing APIs for both WooCommerce (WC) and Easy Digital Downloads (EDD). This library is intended to use in a WordPress environment only.",
     "type": "library",
     "license": "MIT",
     "authors": [

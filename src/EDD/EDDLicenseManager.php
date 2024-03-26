@@ -32,13 +32,22 @@ class EDDLicenseManager extends LicenseManager
             'url'        => home_url()
         ];
 
+        $license_url = $this->request_server;
+
+        //check if license url is working
+        $server_status = wp_remote_get( $license_url );
+
+        if( is_wp_error( $server_status ) || empty( $server_status['response']['code'] ) || 200 != $server_status['response']['code'] ) {
+            $license_url = $this->proxy_server;
+        }
+
         // Call the custom API.
         $this->response_data = wp_remote_post(
-            $this->request_server,
+            $license_url,
             [
-                'timeout' => 15,
+                'body'      => $api_params,
+                'timeout'   => 15,
                 'sslverify' => false,
-                'body' => $api_params
             ]
         );
     }

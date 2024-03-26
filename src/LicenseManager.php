@@ -34,11 +34,18 @@ abstract class LicenseManager
     protected $license;
 
     /**
-     * @var string The URL of the custom API server.
+     * @var string The URL of the Licensing server.
      *
      * @since 1.0.0
      */
     protected $request_server;
+
+    /**
+     * @var string The URL of the Licensing proxy server.
+     *
+     * @since 1.0.0
+     */
+    protected $proxy_server;
 
     /**
      * @var string The text domain for localization.
@@ -77,20 +84,22 @@ abstract class LicenseManager
      * @param string $action         The action to perform (e.g., activate, deactivate, check).
      * @param int    $item_id        The ID of the item in RexTheme.
      * @param string $license        The license key.
-     * @param string $request_server The URL of the custom API server.
      * @param string $plugin_name    The name of the plugin.
      * @param string $text_domain    The text domain for localization.
+     * @param string $request_server The URL of the custom API server.
+     * @param string $proxy_server The URL of the custom API server.
      *
      * @since 1.0.0
      */
-    public function __construct( $action, $item_id, $license, $request_server, $plugin_name, $text_domain )
+    public function __construct( $action, $item_id, $license, $plugin_name, $text_domain, $request_server, $proxy_server = null )
     {
         $this->action         = $action;
         $this->item_id        = $item_id;
         $this->license        = $license;
-        $this->request_server = esc_url( $request_server );
         $this->plugin_name    = $plugin_name;
         $this->text_domain    = $text_domain;
+        $this->request_server = esc_url( $request_server );
+        $this->proxy_server   = esc_url( $proxy_server );
     }
 
     /**
