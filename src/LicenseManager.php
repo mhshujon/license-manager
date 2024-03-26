@@ -48,13 +48,6 @@ abstract class LicenseManager
     protected $proxy_server;
 
     /**
-     * @var string The text domain for localization.
-     *
-     * @since 1.0.0
-     */
-    protected $text_domain;
-
-    /**
      * @var string The name of the plugin.
      *
      * @since 1.0.0
@@ -85,19 +78,17 @@ abstract class LicenseManager
      * @param int    $item_id        The ID of the item in RexTheme.
      * @param string $license        The license key.
      * @param string $plugin_name    The name of the plugin.
-     * @param string $text_domain    The text domain for localization.
      * @param string $request_server The URL of the custom API server.
      * @param string $proxy_server The URL of the custom API server.
      *
      * @since 1.0.0
      */
-    public function __construct( $action, $item_id, $license, $plugin_name, $text_domain, $request_server, $proxy_server = null )
+    public function __construct( $action, $item_id, $license, $plugin_name, $request_server, $proxy_server = null )
     {
         $this->action         = $action;
         $this->item_id        = $item_id;
         $this->license        = $license;
         $this->plugin_name    = $plugin_name;
-        $this->text_domain    = $text_domain;
         $this->request_server = esc_url( $request_server );
         $this->proxy_server   = esc_url( $proxy_server );
     }
@@ -115,23 +106,23 @@ abstract class LicenseManager
     protected function load_response_messages()
     {
         $this->error_messages = [
-            'activate'            => __('Your license has been successfully activated.', $this->text_domain),
-            'deactivate'          => __('Your license has been successfully deactivated.', $this->text_domain),
-            'check'               => __('Your license has been successfully validated.', $this->text_domain),
-            'revoked'             => __('Your license key has been disabled.', $this->text_domain),
-            'missing'             => __('Invalid license.', $this->text_domain),
-            'invalid'             => __('Your license is not active for this URL.', $this->text_domain),
-            'site_inactive'       => __('Your license is not active for this URL.', $this->text_domain),
-            'item_name_mismatch'  => sprintf(__('This appears to be an invalid license key for %s.', $this->text_domain), $this->plugin_name),
-            'no_activations_left' => __('Your license key has reached its activation limit.', $this->text_domain),
-            'deactivated'         => __('Your license successfully deactivate.', $this->text_domain),
-            'failed'              => __('Your license deactivation failed.', $this->text_domain),
-            'default'             => __('An unknown error occurred, please try again.', $this->text_domain)
+            'activate'            => 'Your license has been successfully activated.',
+            'deactivate'          => 'Your license has been successfully deactivated.',
+            'check'               => 'Your license has been successfully validated.',
+            'revoked'             => 'Your license key has been disabled.',
+            'missing'             => 'Your license key has been disabled.',
+            'invalid'             => 'Your license is not active for this URL.',
+            'site_inactive'       => 'Your license is not active for this URL.',
+            'item_name_mismatch'  => sprintf('This appears to be an invalid license key for %s.', $this->plugin_name),
+            'no_activations_left' => 'Your license key has reached its activation limit.',
+            'deactivated'         => 'Your license successfully deactivate.',
+            'failed'              => 'Your license deactivation failed.',
+            'default'             => 'An unknown error occurred, please try again.'
         ];
 
         if ( !empty( $this->response_data->expires ) ) {
             $this->error_messages[ 'expired' ] = sprintf(
-                __('Your license key expired on %s.', $this->text_domain),
+				'Your license key expired on %s.',
                 date_i18n(
                     get_option('date_format'),
                     strtotime( $this->response_data->expires, current_time('timestamp'))

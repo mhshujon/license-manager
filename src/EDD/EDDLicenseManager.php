@@ -88,9 +88,9 @@ class EDDLicenseManager extends LicenseManager
 
         return [
             'success'        => $success,
-            'license_status' => $this->response_data->license ?? 'invalid',
+            'license_status' => $license_data->license ?? 'invalid',
             'message'        => $message,
-            'response_data'  => $this->response_data
+            'response_data'  => $license_data ?? []
         ];
     }
 }
