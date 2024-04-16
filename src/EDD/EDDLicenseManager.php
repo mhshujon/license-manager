@@ -26,7 +26,7 @@ class EDDLicenseManager extends LicenseManager
      */
     public function validate_license() {
         $api_params = [
-            'edd_action' => "{$this->action}_license",
+            'edd_action' => $this->action,
             'license'    => $this->license,
             'item_id'    => $this->item_id, // The ID of the item in RexTheme
             'url'        => home_url()
